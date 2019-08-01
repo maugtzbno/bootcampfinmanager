@@ -1,0 +1,36 @@
+{
+  "name": "bootcampfinmanager",
+  "version": "1.0.0",
+  "description": "stock portfolio manager",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cirus55/bootcampfinmanager.git"
+  },
+  "keywords": [
+    "portfolio",
+    "manager",
+    "stocks",
+    "finance"
+  ],
+  "author": "cirus55",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cirus55/bootcampfinmanager/issues"
+  },
+  "homepage": "https://github.com/cirus55/bootcampfinmanager#readme",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "cheerio": "^1.0.0-rc.3",
+    "dotenv": "^8.0.0",
+    "express": "^4.17.1",
+    "if-env": "^1.0.4",
+    "mongoose": "^5.6.7",
+    "sentiment": "^5.0.1",
+    "twit": "^2.2.11"
+  }
+}
