@@ -61,10 +61,10 @@ and edit with the following:
 
     require("dotenv").config()
     var T = new Twit({
-        consumer_key: twt_cns_key,
-        consumer_secret: twt_cns_secret,
-        access_token: twt_acs_token,
-        access_token_secret: twt_acs_token_secret,
+        consumer_key: process.env.twt_cns_key,
+        consumer_secret: process.env.twt_cns_secret,
+        access_token: process.env.twt_acs_token,
+        access_token_secret: process.env.twt_acs_token_secret,
         timeout_ms: 60 * 1000,  // optional HTTP request timeout to apply to all requests.
         strictSSL: true,     // optional - requires SSL certificates to be valid.
     })
@@ -93,7 +93,7 @@ and edit with the following:
     // get tickers from alphavantage api
     router.use("/stocks/:id",function(req,res){
         ticker = req.params.id;
-        axios.get("https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=" + ticker + "&apikey="process.env.alpha_key)
+        axios.get("https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=" + ticker + "&apikey=" + process.env.alpha_key)
         .then((response) => {
             console.log(response.data);
             res.json(response.data);
@@ -107,7 +107,7 @@ and edit with the following:
     // get stock prices from alphavantage api
     router.use("/stocks/:id",function(req,res){
         ticker = req.params.id;
-        axios.get("https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=" + ticker + "&outputsize=compact&apikey="process.env.alpha_key)
+        axios.get("https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=" + ticker + "&outputsize=compact&apikey=" + process.env.alpha_key)
         .then((response) => {
             console.log(response.data);
             res.json(response.data);
@@ -121,7 +121,7 @@ and edit with the following:
     // get company news from nyt api
     router.use("/nyt/:query", function (req, res) {
         query = req.params.query;
-        axios.get("https://api.nytimes.com/svc/search/v2/articlesearch.json?q=" + query + "&api-key="process.env.nyt_key)
+        axios.get("https://api.nytimes.com/svc/search/v2/articlesearch.json?q=" + query + "&api-key=" + process.env.nyt_key)
         .then((response) => {
             res.json(response.data);
         })
