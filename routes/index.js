@@ -1,3 +1,4 @@
+require("dotenv").config()
 const path = require("path");
 const router = require("express").Router();
 const axios = require("axios");
@@ -5,8 +6,9 @@ const cheerio = require("cheerio");
 const Twit = require("twit");
 const Sentiment = require("sentiment");
 const db = require("../models");
-
-require("dotenv").config()
+const accountSid = process.env.TWILIO_accountSid;
+const authToken = process.env.TWILIO_authToken;
+const client = require('twilio')(accountSid, authToken);
 
 var T = new Twit({
     consumer_key: process.env.twt_cns_key,
@@ -101,22 +103,22 @@ router.use("/reddit", function (req, res) {
 // get company financial ratios from simplefinance api
 router.use("/simfin/:id", function (req, res) {
     var ticker = req.params.id;
-    var compId = ""
+    var compID = ""
     axios.get("https://simfin.com/api/v1/info/find-id/ticker/" + ticker + "?api-key=" + process.env.sm_key)
         .then((response) => {
             compID = response.data[0].simId;
-        })
-        .catch((err) => {
-            console.log(err);
-            res.send(err);
-        })
-        .then(axios.get("https://simfin.com/api/v1/companies/id/" + compID + "/ratios?api-key=" + process.env.sm_key)
+            console.log(response.data[0].simId);
+            axios.get("https://simfin.com/api/v1/companies/id/" + compID + "/ratios?api-key=" + process.env.sm_key)
             .then((resp) => {
+                console.log("segundo then",compID);
                 res.json(resp.data);
             })
             .catch((err) => {
+                console.log("catch");
                 res.send(err);
-            }))
+            })
+
+        })
 })
 
 //get latest tweets from twitter api and do sentiment analysis
@@ -132,12 +134,41 @@ router.use("/twitter/:id", function (req, res) {
     });
 })
 
+//send menssages 
+router.use("/twilio", function (req, res) {
+    client.messages
+        .create({
+            body: 'Esta es la prueba para diana',
+            from: '+18153907997',
+            to: process.env.MYPHONE
+        })
+        .then(message => {
+            console.log(message.sid)
+            res.json({status: "success"})
+        }
+        ).catch(
+            err => {
+
+            res.json({status: "error", msg: err})
+        }
+        );
+})
+
+
 //get user portfolio from mondodb
-router.use("/port/:user", function (req, res) {
+router.use("/portstrategies/", function (req, res) {
+    console.log("llamada de portafolios");
     db.Port
-        .find(req.pararms.user)
-        .then(dbModel => res.json(dbModel))
-        .catch(err => res.status(422).json(err));
+        .find({})
+        .then(dbModel => {
+            console.log("despues del then");
+            res.json(dbModel)
+
+        })
+        .catch(err => {
+            console.log("catch")
+            res.status(422).json(err)
+        });
 })
 
 // If no API routes are hit, send the React app

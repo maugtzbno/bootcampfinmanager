@@ -4,6 +4,7 @@
   "description": "stock portfolio manager",
   "main": "server.js",
   "scripts": {
+    "seed": "node scripts/seedDB.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
@@ -30,7 +31,11 @@
     "express": "^4.17.1",
     "if-env": "^1.0.4",
     "mongoose": "^5.6.7",
+    "pusher": "^2.2.2",
+    "request": "^2.88.0",
+    "request-json": "^0.6.4",
     "sentiment": "^5.0.1",
+    "twilio": "^3.33.3",
     "twit": "^2.2.11"
   }
 }

@@ -1,12 +1,4 @@
-const mongoose = require("mongoose");
-const db = require("../models");
-
-mongoose.connect(
-    process.env.MONGODB_URI ||
-    "mongodb://localhost/btcmpfinmgnr"
-  );
-
-  const portSeed = [
+[
       {
        strategy: "Warren Buffet - 90 / 10 Portfolio",
        tickers: ["VOO", "BIL"],
@@ -47,17 +39,3 @@ mongoose.connect(
         focus: ["US Bonds Long Term", "US Bonds Short Term", "US Equity Blend", "Gold"]   
        }
   ]
-
-  db.Port
-  .remove({})
-  .then(() => db.Port.collection.insertMany(portSeed))
-  .then(data => {
-    console.log(data.result.n + " records inserted!");
-    process.exit(0);
-  })
-  .catch(err => {
-    console.error(err);
-    process.exit(1);
-  });
-
-
