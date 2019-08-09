@@ -1,15 +1,11 @@
 import React from "react";
+import Inputs from "../Components/Input"
+
 function Inicio()
 {
     return(
         <div className="container">
-            <div className="row">
-                <div className="col-sm-4 col-offset-4">
-                    <p>si a huevo</p>
-                    <p></p>
-                </div>
-            </div>
-            
+            <Inputs />
         </div>
     )
 }

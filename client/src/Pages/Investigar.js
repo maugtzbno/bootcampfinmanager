@@ -5,6 +5,7 @@ import React, { Component } from "react";
 // import SearchResults from "../Utilities/SearchResults";
 // import Alert from "../Utilities/Alert";
 import Form from "../Components/Form"
+import ScrollableTabsButtonAuto from "../Components/AutomaticScrollButtons"
 
 class Investigar extends Component {
 
@@ -12,6 +13,7 @@ class Investigar extends Component {
         return (
             <div>
                 <Form />
+                <ScrollableTabsButtonAuto />
             </div>
         );
     }
