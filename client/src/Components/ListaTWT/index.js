@@ -17,21 +17,21 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function AlignItemsList() {
+export default function AlignItemsList(props) {
     const classes = useStyles();
     const [news, setNews] = useState([]);
     useEffect(() => {
-        API.getTwits("APPLE").then(x => {
+        API.getTwits(props.ticker).then(x => {
 
-            console.log("docs", x.data)
+            console.log("docs twitter", x.data)
             setNews(x.data)
         });
-    }, []
+    }, [props.ticker]
     );
 
     return (
         <List className={classes.root}>
-            {news.map(n => {
+            {news.filter(n=>n.sent!==0).map(n => {
                 return(
                 <div>
                 <ListItem alignItems="flex-start" href={n.web_url}>

@@ -32,5 +32,9 @@ export default {
     // Get portfolios from MongoDB
     getPorts: function(){
         return axios.get('/portstrategies')
+    },
+    // Get portfolios from MongoDB
+    getPortsF: function(){
+        return axios.get('/portform')
     }
 }

@@ -171,6 +171,22 @@ router.use("/portstrategies/", function (req, res) {
         });
 })
 
+//get formated ports from mondodb
+router.use("/portform/", function (req, res) {
+    res.json({
+        columns: [
+          { title: 'Ticker', field: 'ticker' },
+          { title: 'Weights', field: 'weights', type: 'numeric' },
+          { title: 'Focus', field: 'focus'},
+        ],
+        data: [
+          { ticker: 'BND', weights: .9 , focus: 1987},
+          { ticker: 'SPY', weights: .1 , focus: 2017},
+        ],
+      })
+})
+
+
 // If no API routes are hit, send the React app
 router.use(function (req, res) {
     res.sendFile(path.join(__dirname, "../client/build/index.html"));

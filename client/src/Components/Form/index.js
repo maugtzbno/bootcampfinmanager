@@ -28,6 +28,11 @@ class Form extends Component {
         });
     };
 
+    handleSelectChange = event =>{
+        console.log("dentro de handle select", event.target.selectedOptions[0].text);
+        this.props.selectTK(event.target.selectedOptions[0].text);
+    }
+
     render() {
         return (
             <div>
@@ -41,11 +46,12 @@ class Form extends Component {
                     />
                     <br></br>
                     <br></br>
-                    <select>
+                    <select onChange={this.handleSelectChange}>
                         {
-                            this.state.options.map((item,key)=>
+                            this.state.options.map((item)=>
                                 <option 
                                 value={item["1. symbol"]}
+                                name={item["2. name"]}
                                 >
                                     {item["1. symbol"]} {item["2. name"]}    
                                 </option>

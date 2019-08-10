@@ -1,28 +1,24 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import MaterialTable from 'material-table';
+import API from "../../utils"
 
 export default function MaterialTableDemo() {
-  const [state, setState] = React.useState({
-    columns: [
-      { title: 'Name', field: 'name' },
-      { title: 'Surname', field: 'surname' },
-      { title: 'Birth Year', field: 'birthYear', type: 'numeric' },
-      {
-        title: 'Birth Place',
-        field: 'birthCity',
-        lookup: { 34: 'İstanbul', 63: 'Şanlıurfa' },
-      },
-    ],
-    data: [
-      { name: 'Mehmet', surname: 'Baran', birthYear: 1987, birthCity: 63 },
-      {
-        name: 'Zerya Betül',
-        surname: 'Baran',
-        birthYear: 2017,
-        birthCity: 34,
-      },
-    ],
-  });
+  // const x = API.getPortsF();
+  // console.log(x.data);
+  // const [state, setState] = React.useState(x.data);
+  // API.getPortsF().then(x =>{
+  //   console.log(x.data)
+  // })
+
+  const [state, setState] = useState([]);
+  useEffect(() => {
+    API.getPortsF().then(x => {
+
+        console.log("formatted", x.data)
+        setState(x.data)
+    });
+}, []
+);
 
   return (
     <MaterialTable

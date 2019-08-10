@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import TablaSM1 from "../TablaSM1"
 import TablaSM2 from "../TablaSM2"
+import API from "../../utils"
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -16,8 +17,17 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function CenteredGrid() {
+export default function CenteredGrid(props) {
   const classes = useStyles();
+  let [Fin, setFin] = useState([]);
+    useEffect(() => {
+        API.getRatios(props.ticker).then(x => {
+
+            console.log("docs simfin", x.data)
+            setFin(x.data)
+        });
+    }, [props.ticker]
+    );
 
   return (
     <div className={classes.root}>
@@ -27,10 +37,10 @@ export default function CenteredGrid() {
 </Paper>
         </Grid>
         <Grid item xs={6}>
-          <Paper className={classes.paper}><TablaSM1/></Paper>
+          <Paper className={classes.paper}><TablaSM1 dat={Fin}/></Paper>
         </Grid>
         <Grid item xs={6}>
-          <Paper className={classes.paper}><TablaSM2 /></Paper>
+          <Paper className={classes.paper}><TablaSM2 dat={Fin}/></Paper>
         </Grid>
       </Grid>
     </div>

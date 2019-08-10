@@ -10,28 +10,36 @@ import Paper from '@material-ui/core/Paper';
 const useStyles = makeStyles(theme => ({
   root: {
     width: '100%',
-    marginTop: theme.spacing(3),
-    overflowX: 'auto',
+    marginTop: theme.spacing(3)
+    // overflowX: 'auto',
   },
   table: {
     minWidth: 650,
   },
 }));
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
+function createData(name, data) {
+  return { name, data };
 }
 
-const rows = [
-  createData('Revenues', 159),
-  createData('Gross Profit', 237),
-  createData('Operating Income', 262),
-  createData('EBITDA', 305),
-  createData('Net Profit Margin', 356),
-];
+// const rows = [
+//   createData('Revenues', 159),
+//   createData('Gross Profit', 237),
+//   createData('Operating Income', 262),
+//   createData('EBITDA', 305),
+//   createData('Net Profit Margin', 356),
+// ];
 
-export default function SimpleTable() {
+export default function SimpleTable(props) {
   const classes = useStyles();
+  console.log(props,props.dat.filter(x =>x.indicatorName == "Revenues"));
+  const rows = [
+    createData('Revenues', props.dat.filter(x =>x.indicatorName == "Revenues").map(x => {return x.value})),
+    createData('Gross Profit', props.dat.filter(x =>x.indicatorName == "Gross Profit").map(x => {return x.value})),
+    createData('Operating Income', props.dat.filter(x =>x.indicatorName == "Operating Income (EBIT)").map(x => {return x.value})),
+    createData('EBITDA', props.dat.filter(x =>x.indicatorName == "EBITDA").map(x => {return x.value})),
+    createData('Net Profit Margin', props.dat.filter(x =>x.indicatorName == "Net Profit Margin").map(x => {return x.value})),
+  ]
 
   return (
     <Paper className={classes.root}>
@@ -51,10 +59,7 @@ export default function SimpleTable() {
               <TableCell component="th" scope="row">
                 {row.name}
               </TableCell>
-              <TableCell align="right">{row.calories}</TableCell>
-              <TableCell align="right">{row.fat}</TableCell>
-              <TableCell align="right">{row.carbs}</TableCell>
-              <TableCell align="right">{row.protein}</TableCell>
+              <TableCell align="right">{row.data}</TableCell>
             </TableRow>
           ))}
         </TableBody>

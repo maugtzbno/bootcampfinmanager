@@ -17,16 +17,20 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function AlignItemsList() {
+export default function AlignItemsList(props) {
     const classes = useStyles();
     const [news, setNews] = useState([]);
     useEffect(() => {
-        API.getNews("APPLE").then(x => {
+        console.log(props);
+        API.getNews(props.ticker).then(x => {
 
-            console.log("docs", x.data.response.docs)
+            console.log("docs NYT", x.data.response.docs)
             setNews(x.data.response.docs)
-        });
-    }, []
+        })
+        .catch(
+            err => console.log(err)
+        );
+    }, [props.ticker]
     );
 
     return (
