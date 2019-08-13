@@ -8,7 +8,11 @@ import NavTabs from "./Components/NavTabs"
 import { BrowserRouter as Router, Route } from "react-router-dom"
 
 
-function App() {
+class App extends React.Component{
+  state = {
+    loggedIn: true
+  }
+  render(){
   return (
     <div className="App">
       <Router>
@@ -17,12 +21,16 @@ function App() {
           <br></br>
           <Route exact path="/" component={Inicio}/>
           <Route exact path="/Registro" component={Registro}/>
+          {this.state.loggedIn? 
           <Route exact path="/Investigar" component={Investigar}/>
+        : ""} 
+          {this.state.loggedIn?
           <Route exact path="/Inversion" component={Inversion}/>
+        : ""}
         </div>
       </Router>
     </div>
-  );
+  )};
 }
 
 export default App;

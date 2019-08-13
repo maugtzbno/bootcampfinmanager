@@ -26,8 +26,8 @@ export default {
         return axios.get('/twitter/'+id)
     },
     // Send twilio messages
-    sendMsg: function(){
-        return axios.get('/twilio')
+    sendMsg: function(data){
+        return axios.post('/twilio',data)
     },
     // Get portfolios from MongoDB
     getPorts: function(){
@@ -35,6 +35,6 @@ export default {
     },
     // Get portfolios from MongoDB
     getPortsF: function(){
-        return axios.get('/portform')
+        return axios.post('/portform')
     }
 }

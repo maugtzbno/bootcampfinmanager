@@ -40,6 +40,11 @@ var frLanguage = {
 };
 sentiment.registerLanguage('en', frLanguage);
 
+function random(seed) {
+    var x = Math.sin(seed) * 10000;
+    return x - Math.floor(x);
+}
+
 //API Routes
 
 // get tickers from alphavantage api
@@ -109,14 +114,14 @@ router.use("/simfin/:id", function (req, res) {
             compID = response.data[0].simId;
             console.log(response.data[0].simId);
             axios.get("https://simfin.com/api/v1/companies/id/" + compID + "/ratios?api-key=" + process.env.sm_key)
-            .then((resp) => {
-                console.log("segundo then",compID);
-                res.json(resp.data);
-            })
-            .catch((err) => {
-                console.log("catch");
-                res.send(err);
-            })
+                .then((resp) => {
+                    console.log("segundo then", compID);
+                    res.json(resp.data);
+                })
+                .catch((err) => {
+                    console.log("catch");
+                    res.send(err);
+                })
 
         })
 })
@@ -135,22 +140,28 @@ router.use("/twitter/:id", function (req, res) {
 })
 
 //send menssages 
-router.use("/twilio", function (req, res) {
+router.post("/twilio", function (req, res) {
+    console.log(req.body);
+    phoneto = "+521" + req.body.celular;
+    console.log(phoneto);
+    x = random(req.body.celular);
+    console.log(x);
+    msgbnv = "Bienvenido/a " + req.body.nombre + " tu clave dinamica es "+ Math.floor(x*9999);
     client.messages
         .create({
-            body: 'Esta es la prueba para diana',
+            body: msgbnv,
             from: '+18153907997',
-            to: process.env.MYPHONE
+            to: phoneto
         })
         .then(message => {
             console.log(message.sid)
-            res.json({status: "success"})
+            res.json({ status: "success" })
         }
         ).catch(
             err => {
 
-            res.json({status: "error", msg: err})
-        }
+                res.json({ status: "error", msg: err })
+            }
         );
 })
 
@@ -172,18 +183,29 @@ router.use("/portstrategies/", function (req, res) {
 })
 
 //get formated ports from mondodb
-router.use("/portform/", function (req, res) {
-    res.json({
-        columns: [
-          { title: 'Ticker', field: 'ticker' },
-          { title: 'Weights', field: 'weights', type: 'numeric' },
-          { title: 'Focus', field: 'focus'},
-        ],
-        data: [
-          { ticker: 'BND', weights: .9 , focus: 1987},
-          { ticker: 'SPY', weights: .1 , focus: 2017},
-        ],
-      })
+router.post("/portform/", function (req, res) {
+    //console.log(req.body);
+    db.Port
+        .find({"strategy" : "Warren Buffet - 90 / 10 Portfolio"})
+        .then(dbModel =>{
+            console.log("busqueda de portafolio");
+            console.log(dbModel)
+            res.json({
+                columns: [
+                    { title: 'Ticker', field: 'ticker' },
+                    { title: 'Weights', field: 'weights', type: 'numeric' },
+                    { title: 'Focus', field: 'focus' },
+                ],
+                data: [
+                    { ticker: 'BND', weights: .9, focus: 1987 },
+                    { ticker: 'SPY', weights: .1, focus: 2017 },
+                ],
+            })
+        })
+        .catch(err => {
+            console.log("catch")
+            res.status(422).json(err)
+        });
 })
 
 

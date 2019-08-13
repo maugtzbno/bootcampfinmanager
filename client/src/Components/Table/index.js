@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import MaterialTable from 'material-table';
 import API from "../../utils"
 
-export default function MaterialTableDemo() {
+export default function MaterialTableDemo(props) {
   // const x = API.getPortsF();
   // console.log(x.data);
   // const [state, setState] = React.useState(x.data);
