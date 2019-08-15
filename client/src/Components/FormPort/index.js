@@ -27,7 +27,7 @@ class FormPort extends Component {
 
         if (value.length > 1) {
             API.getPorts(value).then(res => {
-                console.log(res.data)
+                //console.log(res.data)
                 this.setState({
                     options: res.data
                 })
@@ -42,14 +42,12 @@ class FormPort extends Component {
     };
 
     handleSelectChange = event => {
-        // console.log("dentro de handle select", event.target.selectedOptions[0].text);
-        // this.props.selectTK(event.target.selectedOptions[0].text);
-        console.log(event.target.value)
+        this.props.selectPort(event.target.selectedOptions[0].text);
     }
 
     handleClick = event => {
         event.preventDefault();
-        API.getPortsF(this.state);
+        //API.getPortsF(this.state).then(x => console.log("handle click",x));
       }
 
     render() {
@@ -76,11 +74,10 @@ class FormPort extends Component {
                             )
                         }
                     </select>
-                    <Button variant="contained" color="primary" className={this.classes.button} type="submit">
+                    {/* <Button variant="contained" color="primary" className={this.classes.button} type="submit">
                         Send
-        {/* This Button uses a Font Icon, see the installation instructions in the docs. */}
                         <Icon className={this.classes.rightIcon}>send</Icon>
-                    </Button>
+                    </Button> */}
                 </form>
             </div>
         );

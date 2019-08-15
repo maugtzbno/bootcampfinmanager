@@ -8,7 +8,7 @@ mongoose.connect(
 
   const portSeed = [
       {
-       strategy: "Warren Buffet - 90 / 10 Portfolio",
+       strategy: "Warren Buffet - 90 - 10 Portfolio",
        tickers: ["VOO", "BIL"],
        weights: [.90,.10],
        focus: ["US Equity Blend", "US Bonds Short Term"]   

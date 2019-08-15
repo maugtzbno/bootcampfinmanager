@@ -183,23 +183,28 @@ router.use("/portstrategies/", function (req, res) {
 })
 
 //get formated ports from mondodb
-router.post("/portform/", function (req, res) {
-    //console.log(req.body);
+router.use("/portform/:strategy", function (req, res) {
+    console.log(req.params.strategy);
     db.Port
-        .find({"strategy" : "Warren Buffet - 90 / 10 Portfolio"})
+        .find({"strategy" : req.params.strategy})
         .then(dbModel =>{
             console.log("busqueda de portafolio");
             console.log(dbModel)
+            const data = [];
+            for (let i = 0; i < dbModel[0].tickers.length; i++) {
+                data.push({
+                    ticker: dbModel[0].tickers[i],
+                    weights: dbModel[0].weights[i],
+                    focus: dbModel[0].focus[i]
+                })
+            }
             res.json({
                 columns: [
                     { title: 'Ticker', field: 'ticker' },
                     { title: 'Weights', field: 'weights', type: 'numeric' },
                     { title: 'Focus', field: 'focus' },
                 ],
-                data: [
-                    { ticker: 'BND', weights: .9, focus: 1987 },
-                    { ticker: 'SPY', weights: .1, focus: 2017 },
-                ],
+                data: data,
             })
         })
         .catch(err => {

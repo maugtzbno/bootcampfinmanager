@@ -1,17 +1,21 @@
 import React from "react";
 import Table from "../Components/Table"
 import FormPort from "../Components/FormPort"
+import API from "../utils"
 
 class Inversion extends React.Component{
     state = {
-        selectPort: "PruebaPort"
+        selectPort: "PruebaPort",
+        data: []
     }
 
     changePort = (value)=>{
         this.setState({
             selectPort: value
         })
+        console.log("en inversion",this.state.selectPort);
     }
+
 
     render(){
         return(

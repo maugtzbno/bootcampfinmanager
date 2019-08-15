@@ -12,12 +12,12 @@ export default function MaterialTableDemo(props) {
 
   const [state, setState] = useState([]);
   useEffect(() => {
-    API.getPortsF().then(x => {
-
-        console.log("formatted", x.data)
+    API.getPortsF(props.selectPort).then(x => {
+        console.log("selec Port",props.selectPort)
+        console.log("formatted", x)
         setState(x.data)
     });
-}, []
+}, [props.selectPort]
 );
 
   return (
