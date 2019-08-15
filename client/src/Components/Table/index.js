@@ -22,7 +22,7 @@ export default function MaterialTableDemo(props) {
 
   return (
     <MaterialTable
-      title="Editable Example"
+      title="Portafolio Editable"
       columns={state.columns}
       data={state.data}
       editable={{

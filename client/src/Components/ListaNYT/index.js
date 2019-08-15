@@ -37,8 +37,8 @@ export default function AlignItemsList(props) {
         <List className={classes.root}>
             {news.map(n => {
                 return(
-                <div>
-                <ListItem alignItems="flex-start" href={n.web_url}>
+                <a href={n.web_url} target="_blank">
+                <ListItem alignItems="flex-start">
                     <ListItemText
                         primary={n.lead_paragraph}
                         secondary={
@@ -57,7 +57,7 @@ export default function AlignItemsList(props) {
                     />
                 </ListItem>
                 <Divider variant="inset" component="li" />
-                </div>)
+                </a>)
             })}
         </List>
     );

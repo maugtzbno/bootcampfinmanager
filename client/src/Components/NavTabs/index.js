@@ -163,7 +163,7 @@ export default function Links() {
         }} }
       >
         
-      <h1 > The Best Place to Invest </h1>
+      <h1 > El mejor lugar para tus inversiones </h1>
       <br></br>
       {/* <h3> FinManager</h3> */}
       </Typography>
